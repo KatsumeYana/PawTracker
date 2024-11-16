@@ -5,19 +5,22 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuButton}>
-          <Image source={require('../assets/icons/profile-icon.png')} style={styles.icon} />
-          <Text style={styles.menuText}>Profile</Text>
-        </TouchableOpacity>
+        
+      <TouchableOpacity
+        style={styles.menuButton}
+        onPress={() => navigation.navigate('Profile')} // Navigate to Profile
+      >
+        <Image source={require('../assets/icons/profile-icon.png')} style={styles.icon} />
+        <Text style={styles.menuText}>Profile</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.menuButton} 
-          onPress={() => navigation.navigate('VetClinics')}
-        >
-          <Image source={require('../assets/icons/vet-icon.png')} style={styles.icon} />
-          <Text style={styles.menuText}>Vet Clinics</Text>
-        </TouchableOpacity>
-      
+      <TouchableOpacity
+        style={styles.menuButton}
+        onPress={() => navigation.navigate('VetClinics')} // Navigate to VetClinics
+      >
+        <Image source={require('../assets/icons/vet-icon.png')} style={styles.icon} />
+        <Text style={styles.menuText}>Vet Clinics</Text>
+      </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuButton}>
           <Image source={require('../assets/icons/find-icon.png')} style={styles.icon} />
@@ -71,10 +74,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   menuText: {
-    fontSize: 20,
+    fontSize: 16,
+    fontFamily: 'Afacad-Regular',  
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'Afacad', // Ensure consistency with fontFamily name
+    color: '#000', 
+
   },
 });
 

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert, Image, Modal
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-const VetClinicsScreen = () => {
+const VetClinics = () => {
   const [location, setLocation] = useState(null);
   const [destination, setDestination] = useState(null);
   const [clinics, setClinics] = useState([]);
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    fontFamily: 'Afacad', 
+    fontFamily: 'Afacad-Regular', 
     marginBottom: 15,
     color: '#000',
   },
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 16,
-    fontFamily: 'Afacad',
+    fontFamily: 'Afacad-Regular',
     color: '#666',
   },
   searchButton: {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'Afacad',
+    fontFamily: 'Afacad-Regular',
   },
   modalContainer: {
     flex: 1,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   clinicName: {
     flex: 1,
     fontSize: 16,
-    fontFamily: 'Afacad',
+    fontFamily: 'Afacad-Regular',
     color: '#000',
   },
   callButton: {
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
-  },
+  }
 });
 
-export default VetClinicsScreen;
+export default VetClinics;
