@@ -15,7 +15,7 @@ const VetClinicsScreen = () => {
       if (status !== 'granted') {
         Alert.alert("Permission to access location was denied");
         return;
-      }da
+      }
 
       let userLocation = await Location.getCurrentPositionAsync({});
       setLocation({
