@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert, Image, Modal
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-const VetClinics = () => {
+const VetClinics = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [destination, setDestination] = useState(null);
   const [clinics, setClinics] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false); // For handling modal visibility
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -45,11 +45,22 @@ const VetClinics = () => {
       { id: '3', name: 'VetCare Clinic', phone: '555-123-4567' },
     ];
     setClinics(sampleClinics);
-    setModalVisible(true); // Show the modal when search button is clicked
+    setModalVisible(true);
   };
 
   return (
     <View style={styles.container}>
+      {/* Back button */}
+      <TouchableOpacity 
+        style={styles.backButton} 
+        onPress={() => navigation.goBack()}
+      >
+        <Image 
+          source={require('../assets/icons/back.png')}  
+          style={styles.backIcon}
+        />
+      </TouchableOpacity>
+
       <MapView
         style={styles.map}
         region={location}
@@ -64,14 +75,14 @@ const VetClinics = () => {
 
       <View style={styles.searchPanel}>
         <Text style={styles.title}>Search Clinics</Text>
-        
+
         <TouchableOpacity style={styles.input} onPress={() => Alert.alert('Select Your Location')}>
-          <Image source={require('C:/Users/Juliana/PawTracker/assets/icons/cil_hospital.png')} style={styles.icon} />
+          <Image source={require('../assets/icons/cil_hospital.png')} style={styles.icon} />
           <Text style={styles.inputText}>Your Location</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.input} onPress={handleDestinationSelect}>
-          <Image source={require('C:/Users/Juliana/PawTracker/assets/icons/cil_hospital.png')} style={styles.icon} />
+          <Image source={require('../assets/icons/cil_hospital.png')} style={styles.icon} />
           <Text style={styles.inputText}>Select Destination</Text>
         </TouchableOpacity>
 
@@ -95,10 +106,10 @@ const VetClinics = () => {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <View style={styles.clinicItem}>
-                  <Image source={require('C:/Users/Juliana/PawTracker/assets/icons/cil_hospital.png')} style={styles.icon} />
+                  <Image source={require('../assets/icons/cil_hospital.png')} style={styles.icon} />
                   <Text style={styles.clinicName}>{item.name}</Text>
                   <TouchableOpacity style={styles.callButton} onPress={() => Alert.alert(`Options for ${item.name}`)}>
-                    <Image source={require('C:/Users/Juliana/PawTracker/assets/icons/3 dot.png')} style={styles.callIcon} />
+                    <Image source={require('../assets/icons/3 dot.png')} style={styles.callIcon} />
                   </TouchableOpacity>
                 </View>
               )}
@@ -119,6 +130,17 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 30,
+    left: 20,
+    zIndex: 1, // Ensure it's above other elements
+  },
+  backIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
   },
   searchPanel: {
     position: 'absolute',

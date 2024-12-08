@@ -1,5 +1,5 @@
 // New Password
-import React, {} from 'react';
+import React, {useState} from 'react';
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
@@ -10,6 +10,13 @@ const NewPassword = ({ navigation }) => {
     'Afacad-Regular': require('../assets/fonts/Afacad-Regular.ttf'),
   });
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  // Toggle the password visibility
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible); // Toggle the state
+  };
+
   return (
     <SafeAreaView style = {{flex:1, backgroundColor:'#fff'}}>
     <View style = {styles.container}>
@@ -17,24 +24,35 @@ const NewPassword = ({ navigation }) => {
       <Text style = {styles.title}>Create New Password</Text>
       </View>
 
-    <View style = {styles.inputContainer}>
-    <Image source={require('../assets/icons/newPassword.png')} 
-          style={styles.icon}
-        />
-        <Image source={require('../assets/icons/view.png')}
-          style={styles.view}
-        />
-      <TextInput style = {styles.nameInput} placeholder = "New Password"/>
-    </View>
-    <View style = {styles.inputContainer}>
-    <Image source={require('../assets/icons/password.png')}
-          style={styles.icon}
-        />
-        <Image source={require('../assets/icons/view.png')}
-          style={styles.view}
-        />
-      <TextInput style = {styles.nameInput} placeholder = "Confirm Password" secureTextEntry/>
-    </View>
+      <View style={styles.inputContainer}>
+          <Image source={require('../assets/icons/password.png')} style={styles.icon} />
+          <TextInput 
+            style={styles.nameInput} 
+            placeholder="New Password" 
+            secureTextEntry={!isPasswordVisible} // Toggle secureTextEntry based on isPasswordVisible state
+          />
+          <TouchableOpacity onPress={togglePasswordVisibility} style={styles.view}>
+            <Image 
+              source={require('../assets/icons/view.png')} 
+              style={styles.viewIcon} 
+            />
+          </TouchableOpacity>
+        </View>
+
+    <View style={styles.inputContainer}>
+          <Image source={require('../assets/icons/password.png')} style={styles.icon} />
+          <TextInput 
+            style={styles.nameInput} 
+            placeholder="Confirm Password" 
+            secureTextEntry={!isPasswordVisible} // Toggle secureTextEntry based on isPasswordVisible state
+          />
+          <TouchableOpacity onPress={togglePasswordVisibility} style={styles.view}>
+            <Image 
+              source={require('../assets/icons/view.png')} 
+              style={styles.viewIcon} 
+            />
+          </TouchableOpacity>
+        </View>
     
 
    <View style={styles.buttonContainer}>

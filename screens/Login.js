@@ -1,6 +1,5 @@
-//Login
-import React, { useState } from 'react';
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 
@@ -15,20 +14,38 @@ const Login = ({ navigation }) => {
 
   const [isLoading, setIsLoading] = useState(false); 
 
+  // Set up an animated value for the fade-in effect
+  const [fadeAnim] = useState(new Animated.Value(0));  // Initial opacity is 0
+
+  // Trigger the fade-in effect when the screen loads
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,  // Fade to fully visible
+      duration: 1500,  // Duration of the fade-in
+      useNativeDriver: true,  // Optimize the animation for performance
+    }).start();
+  }, [fadeAnim]);
+
   const handleLogin = async () => {
     setIsLoading(true); 
 
-    
     setTimeout(() => {
       setIsLoading(false); 
       navigation.navigate('HomeScreen'); 
     }, 2000); 
   };
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  // Toggle the password visibility
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible); // Toggle the state
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={styles.container}>
-       
+      {/* Apply the fade-in effect by using Animated.View */}
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
         <View style={styles.header}>
           <Text style={styles.title}>Login</Text>
         </View>
@@ -40,8 +57,17 @@ const Login = ({ navigation }) => {
 
         <View style={styles.inputContainer}>
           <Image source={require('../assets/icons/password.png')} style={styles.icon} />
-          <Image source={require('../assets/icons/view.png')} style={styles.view} />
-          <TextInput style={styles.nameInput} placeholder="Password" secureTextEntry />
+          <TextInput 
+            style={styles.nameInput} 
+            placeholder="Password" 
+            secureTextEntry={!isPasswordVisible} // Toggle secureTextEntry based on isPasswordVisible state
+          />
+          <TouchableOpacity onPress={togglePasswordVisibility} style={styles.view}>
+            <Image 
+              source={require('../assets/icons/view.png')} 
+              style={styles.viewIcon} 
+            />
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
@@ -67,7 +93,7 @@ const Login = ({ navigation }) => {
             <Text style={styles.loadingText}>Logging in...</Text>
           </View>
         )}
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -83,8 +109,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: 'Afacad-Regular',
+    fontFamily: 'Afacad',
     textAlign: 'center',
+    fontWeight: '500',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -115,7 +142,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     top: '50%',
-    transform: [{ translateY: -10 }],
+    transform: [{ translateY: -10 }],  // Vertically center the view icon
+  },
+  viewIcon: {
     width: 20,
     height: 20,
     resizeMode: 'contain',
@@ -156,7 +185,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Afacad-Regular',
     textAlign: 'center',
   },
-  
   loadingOverlay: {
     position: 'absolute',
     top: 0,

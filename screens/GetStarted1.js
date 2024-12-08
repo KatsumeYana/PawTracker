@@ -34,7 +34,7 @@ const GetStarted1 = ({ navigation }) => {
     
       <View style = {styles.header}>
       <Text style = {styles.text}>Find Nearby Clinics</Text>
-    <Text style={styles.textInput}>Ensure your pet receives the best care without the hassle of searching.</Text>
+    <Text style={styles.textInput}>Ensure your pet receives the best care {' '} without the hassle of searching.</Text>
       </View>
 
       <View style={styles.pageIndicator}>

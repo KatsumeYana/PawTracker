@@ -117,4 +117,3 @@ footer: {
     
     
 export default ForgotPassword;
-    
